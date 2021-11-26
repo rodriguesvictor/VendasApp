@@ -93,6 +93,11 @@ namespace VendasApp
             }
         }
 
+        internal static void GetDescricao()
+        {
+            throw new NotImplementedException();
+        }
+
         public static DataTable GetVendas(string procurar = "")
         {
             var dt = new DataTable();

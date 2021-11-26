@@ -58,9 +58,7 @@ namespace VendasApp
             dgvVendas.Columns["data_criacao"].HeaderText = "Data de Registro";
             dgvVendas.Columns["data_criacao"].Width = 150;
 
-            /*dgvVendas.Columns["data_alteracao"].HeaderText = "Data de Alteração";
-            dgvVendas.Columns["data_alteracao"].Width = 150;*/
-          
+        
             dgvVendas.Sort(dgvVendas.Columns["data_criacao"], ListSortDirection.Descending);
 
         }

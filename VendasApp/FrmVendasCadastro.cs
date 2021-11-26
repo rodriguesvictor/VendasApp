@@ -14,24 +14,26 @@ namespace VendasApp
     {
         int id;
         bool excluir = false;
+
+
         Venda venda = new Venda();
-        public FrmVendasCadastro(int id,  bool excluir = false)
+
+        public FrmVendasCadastro(int id, bool excluir = false)
         {
             InitializeComponent();
             this.id = id;
             this.excluir = excluir;
-           
+
+
 
             if (this.id > 0) {
                 venda.GetVenda(this.id);
-
                 lblId.Text = venda.Id.ToString();
                 txtDescricao.Text = venda.Descricao;
                 txtUnitariocompra.Text = venda.Unitariocompra.ToString("N2");
                 txtUnitariovenda.Text = venda.Unitariovenda.ToString("N2");
                 txtEstoque_minimo.Text = venda.Estoque_minimo.ToString();
 
-                
 
                 if (venda.Ativo == 'S')
                     chkAtivo.Checked = true;
@@ -43,7 +45,7 @@ namespace VendasApp
                 btnExcluir.Visible = true;
             }
 
-          
+
         }
 
         private void TravarControles()
@@ -102,37 +104,40 @@ namespace VendasApp
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (ValidarForm()) {
-      
+            if (ValidarForm())
+            {
                 venda.Descricao = txtDescricao.Text;
                 venda.Unitariocompra = Convert.ToDecimal("0" + txtUnitariocompra.Text);
-            venda.Unitariovenda = Convert.ToDecimal("0" + txtUnitariovenda.Text);
-            venda.Estoque_minimo = Convert.ToInt32("0" + txtEstoque_minimo.Text);
-            
+                venda.Unitariovenda = Convert.ToDecimal("0" + txtUnitariovenda.Text);
+                venda.Estoque_minimo = Convert.ToInt32("0" + txtEstoque_minimo.Text);
 
-            if (chkAtivo.Checked == true)
-                venda.Ativo = 'S';
-            else
-                venda.Ativo = 'N';
 
-            venda.SalvarVenda();
-            this.Close();
+                if (chkAtivo.Checked == true)
+                    venda.Ativo = 'S';
+                else
+                    venda.Ativo = 'N';
+
+                venda.SalvarVenda();
+
             }
         }
         private bool ValidarForm() {
-          
+            venda.Descricao = txtDescricao.Text;
             if (txtDescricao.Text == "")
             {
                 MessageBox.Show("Digite a Descrição.", Program.sistema);
                 txtDescricao.Focus();
                 return false;
             }
+
             else if (txtDescricao.Text.Equals(venda.Descricao))
             {
-                MessageBox.Show("Já existe uma descrição com esse nome", Program.sistema);
+                MessageBox.Show("Descrição já cadastrada", Program.sistema);
                 txtDescricao.Focus();
+                this.Close();
                 return false;
             }
+
 
             else if (Convert.ToDecimal("0" + txtUnitariocompra.Text) == 0)
             {
@@ -149,6 +154,7 @@ namespace VendasApp
             else
                 return true;
         }
+    
 
         private void FrmVendasCadastro_Load(object sender, EventArgs e)
         {
@@ -167,3 +173,4 @@ namespace VendasApp
         }
     }
 }
+
