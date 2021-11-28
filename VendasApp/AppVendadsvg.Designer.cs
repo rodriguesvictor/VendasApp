@@ -36,6 +36,7 @@ namespace VendasApp
             this.txtProcurar = new System.Windows.Forms.TextBox();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVendas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,12 +143,24 @@ namespace VendasApp
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.label2.Location = new System.Drawing.Point(404, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(232, 29);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Gerenciador de Vendas";
+            // 
             // AppVendadsvg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1044, 521);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.txtProcurar);
@@ -155,6 +168,7 @@ namespace VendasApp
             this.Controls.Add(this.btnAdicionar);
             this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.dgvVendas);
+            this.ForeColor = System.Drawing.SystemColors.MenuText;
             this.Name = "AppVendadsvg";
             this.Text = "AppVendas";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -173,6 +187,7 @@ namespace VendasApp
         private System.Windows.Forms.TextBox txtProcurar;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label2;
     }
 }
 

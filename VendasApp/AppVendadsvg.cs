@@ -85,8 +85,7 @@ namespace VendasApp
 
          private void btnAdicionar_Click(object sender, EventArgs e) 
         {
-            var descricao = Convert.ToString(dgvVendas.Rows[dgvVendas.CurrentCell.RowIndex].Cells
-               ["Descricao"].Value);
+            var descricao = "";
             using (var frm = new FrmVendasCadastro(0, descricao))
             {
                 frm.ShowDialog();
@@ -137,5 +136,7 @@ namespace VendasApp
         {
 
         }
+
+
     }
 }
