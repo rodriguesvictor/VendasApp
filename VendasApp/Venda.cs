@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace VendasApp
 {
-    class Venda
+    public class Venda
     {
         public int Id { get; set; }
 
@@ -48,14 +48,20 @@ namespace VendasApp
                                     this.Unitariocompra = Convert.ToDecimal(dr["unitariocompra"]);
                                     this.Unitariovenda = Convert.ToDecimal(dr["unitariovenda"]);
                                     this.Estoque_minimo = Convert.ToInt32(dr["estoque_minimo"]);
-                                    this.Ativo = Convert.ToChar(dr["ativo"]);                                   
-
+                                    this.Ativo = Convert.ToChar(dr["ativo"]);
+                                    
+                                    dr.Close();
                                 }
                             }
                         }
+                       
                     }
+                    
+
                 }
+           
             }
+         
             catch (Exception ex) {
                 MessageBox.Show(ex.Message);
                     }
@@ -86,6 +92,7 @@ namespace VendasApp
                         cmd.Parameters.AddWithValue("@data_criacao", this.Data_criacao);
                         cmd.ExecuteNonQuery();
                     }
+                   
                 }
             }
             catch (Exception ex) {
@@ -93,9 +100,26 @@ namespace VendasApp
             }
         }
 
-        internal static void GetDescricao()
+        internal static void GetDescricao(string descricao)
         {
-            throw new NotImplementedException();
+            var sql = "SELECT * FROM vendas WHERE descricao='" + descricao + "'";
+
+            try
+            {
+                using (var cn = new MySqlConnection(Conn.strConn))
+                {
+                    cn.Open();
+                    using (var cmd = new MySqlCommand(sql, cn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public static DataTable GetVendas(string procurar = "")
@@ -116,7 +140,10 @@ namespace VendasApp
                     {
 
                         da.Fill(dt);
+
                     }
+                    cn.Close();
+
                 }
             }
             catch (Exception ex)
@@ -128,6 +155,7 @@ namespace VendasApp
 
         public void Excluir() {
             var sql = "DELETE FROM vendas WHERE id=" + this.Id;
+
             try
             {
                 using (var cn = new MySqlConnection(Conn.strConn))
@@ -137,12 +165,37 @@ namespace VendasApp
                     {
                         cmd.ExecuteNonQuery();
                     }
+                   
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+        }
+
+        public void GetDescription(string descricao)
+        {
+            var sql = "SELECT * FROM vendas WHERE descricao='" + descricao + "'";
+
+            try
+            {
+                using (var cn = new MySqlConnection(Conn.strConn))
+                {
+                    cn.Open();
+                    using (var cmd = new MySqlCommand(sql, cn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

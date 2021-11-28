@@ -9,7 +9,7 @@ namespace VendasApp
     static class Program
     {
         /// <summary>
-        /// Ponto de entrada principal para o aplicativo.
+        /// Ponto de entrada para o aplicativo de Gerencia de vendas.
         /// </summary>
         /// 
 
@@ -20,7 +20,7 @@ namespace VendasApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new AppVendadsvg());
         }
     }
 }

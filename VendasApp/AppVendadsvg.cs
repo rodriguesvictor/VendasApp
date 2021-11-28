@@ -10,10 +10,11 @@ using System.Windows.Forms;
 
 namespace VendasApp
 {
-    public partial class Form1 : Form
+    public partial class AppVendadsvg : Form
     {
+
         DataTable dt = new DataTable();
-        public Form1()
+        public AppVendadsvg()
         {
             InitializeComponent();
             Inicializar();
@@ -21,9 +22,11 @@ namespace VendasApp
 
         private void Inicializar()
         {
+           
             dt = Venda.GetVendas();
             dgvVendas.DataSource = dt;
             ConfigurarGradeVendas();
+           
         }
 
         private void ConfigurarGradeVendas()
@@ -63,35 +66,44 @@ namespace VendasApp
 
         }
 
-        private void btnAlterar_Click(object sender, EventArgs e)
+         private void BtnAlterar_Click(object sender, EventArgs e)
         {
             var id = Convert.ToInt32(dgvVendas.Rows[dgvVendas.CurrentCell.RowIndex].Cells
                 ["Id"].Value);
+            var descricao = Convert.ToString(dgvVendas.Rows[dgvVendas.CurrentCell.RowIndex].Cells
+               ["Descricao"].Value);
 
-            using(var frm = new FrmVendasCadastro(id))
+            using (var frm = new FrmVendasCadastro(id, descricao))
             {
                 frm.ShowDialog();
                 dgvVendas.DataSource = Venda.GetVendas();
-            }
-        }
-
-        private void btnAdicionar_Click(object sender, EventArgs e)
-        {
-            using (var frm = new FrmVendasCadastro(0))
-            {
-                frm.ShowDialog();
-                dgvVendas.DataSource = Venda.GetVendas();
+                Venda.GetDescricao(descricao);
                 ConfigurarGradeVendas();
 
             }
         }
 
-        private void dgvVendas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+         private void btnAdicionar_Click(object sender, EventArgs e) 
+        {
+            var descricao = Convert.ToString(dgvVendas.Rows[dgvVendas.CurrentCell.RowIndex].Cells
+               ["Descricao"].Value);
+            using (var frm = new FrmVendasCadastro(0, descricao))
+            {
+                frm.ShowDialog();
+               dgvVendas.DataSource = Venda.GetVendas();
+                Venda.GetDescricao(descricao);
+
+                ConfigurarGradeVendas();
+
+            }
+        }
+
+         private void dgvVendas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+         private void btnBuscar_Click(object sender, EventArgs e)
         {
             dt = Venda.GetVendas(txtProcurar.Text);
             dgvVendas.DataSource = dt;
@@ -99,17 +111,31 @@ namespace VendasApp
 
         }
 
-        private void btnExcluir_Click(object sender, EventArgs e)
+         private void btnExcluir_Click(object sender, EventArgs e)
         {
             var id = Convert.ToInt32(dgvVendas.Rows[dgvVendas.CurrentCell.RowIndex].Cells
                 ["Id"].Value);
-            using (var frm = new FrmVendasCadastro(id, true))
+            var descricao = Convert.ToString(dgvVendas.Rows[dgvVendas.CurrentCell.RowIndex].Cells
+               ["Descricao"].Value);
+
+            using (var frm = new FrmVendasCadastro(id, descricao,  true))
             {
                 frm.ShowDialog();
                 dgvVendas.DataSource = Venda.GetVendas();
+                Venda.GetDescricao(descricao);
                 ConfigurarGradeVendas();
 
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtProcurar_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

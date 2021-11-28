@@ -15,32 +15,41 @@ namespace VendasApp
         int id;
         bool excluir = false;
 
+        string descricao;
 
         Venda venda = new Venda();
 
-        public FrmVendasCadastro(int id, bool excluir = false)
+        public FrmVendasCadastro(int id, string descricao, bool excluir = false)
         {
             InitializeComponent();
             this.id = id;
             this.excluir = excluir;
+            this.descricao = descricao;
+           
 
 
-
-            if (this.id > 0) {
+            if (this.id > 0)
+            {
                 venda.GetVenda(this.id);
                 lblId.Text = venda.Id.ToString();
                 txtDescricao.Text = venda.Descricao;
                 txtUnitariocompra.Text = venda.Unitariocompra.ToString("N2");
                 txtUnitariovenda.Text = venda.Unitariovenda.ToString("N2");
                 txtEstoque_minimo.Text = venda.Estoque_minimo.ToString();
-
+                btnSalvar.Visible = false;
+                btnExcluir.Visible = false;
 
                 if (venda.Ativo == 'S')
                     chkAtivo.Checked = true;
 
             }
+            else {
+                btnEditar.Visible = false;
+
+            }
             if (this.excluir) {
                 TravarControles();
+                btnEditar.Visible = false;
                 btnSalvar.Visible = false;
                 btnExcluir.Visible = true;
             }
@@ -118,11 +127,17 @@ namespace VendasApp
                     venda.Ativo = 'N';
 
                 venda.SalvarVenda();
+                this.Close();
 
             }
         }
+    
         private bool ValidarForm() {
+            
+            venda.GetDescription(this.descricao);
             venda.Descricao = txtDescricao.Text;
+
+
             if (txtDescricao.Text == "")
             {
                 MessageBox.Show("Digite a Descrição.", Program.sistema);
@@ -130,11 +145,11 @@ namespace VendasApp
                 return false;
             }
 
-            else if (txtDescricao.Text.Equals(venda.Descricao))
+            else if (txtDescricao.Text.Equals(descricao))
             {
+
                 MessageBox.Show("Descrição já cadastrada", Program.sistema);
                 txtDescricao.Focus();
-                this.Close();
                 return false;
             }
 
@@ -151,10 +166,54 @@ namespace VendasApp
                 txtUnitariovenda.Focus();
                 return false;
             }
+            else if (Convert.ToInt32("0" + txtEstoque_minimo.Text) == 0) {
+                MessageBox.Show("Informe a quantidade.", Program.sistema);
+                txtUnitariovenda.Focus();
+                return false;
+            }
             else
                 return true;
         }
-    
+
+
+        private bool ValidarEdit()
+        {
+
+
+            if (txtDescricao.Text == "")
+            {
+                MessageBox.Show("Digite a Descrição.", Program.sistema);
+                txtDescricao.Focus();
+                return false;
+            }
+            else if ( txtDescricao.Text != txtDescricao.Text)
+            {
+                MessageBox.Show("Descrição invalida", Program.sistema);
+                txtDescricao.Focus();
+                return false;
+            }
+
+            else if (Convert.ToDecimal("0" + txtUnitariocompra.Text) == 0)
+            {
+                MessageBox.Show("Informe o preço de compra.", Program.sistema);
+                txtUnitariocompra.Focus();
+                return false;
+            }
+            else if (Convert.ToDecimal("0" + txtUnitariovenda.Text) == 0)
+            {
+                MessageBox.Show("Informe o preço de Venda.", Program.sistema);
+                txtUnitariovenda.Focus();
+                return false;
+            }
+            else if (Convert.ToInt32("0" + txtEstoque_minimo.Text) == 0)
+            {
+                MessageBox.Show("Informe a quantidade.", Program.sistema);
+                txtUnitariovenda.Focus();
+                return false;
+            }
+            else
+                return true;
+        }
 
         private void FrmVendasCadastro_Load(object sender, EventArgs e)
         {
@@ -169,6 +228,31 @@ namespace VendasApp
 
         private void txtDescricao_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (ValidarEdit()) {
+
+                venda.Descricao = txtDescricao.Text;
+                venda.Unitariocompra = Convert.ToDecimal("0" + txtUnitariocompra.Text);
+                venda.Unitariovenda = Convert.ToDecimal("0" + txtUnitariovenda.Text);
+                venda.Estoque_minimo = Convert.ToInt32("0" + txtEstoque_minimo.Text);
+
+                if (chkAtivo.Checked == true)
+                {
+                    venda.Ativo = 'S';
+                }
+                else
+                {
+                    venda.Ativo = 'N';
+                }
+
+                venda.SalvarVenda();
+                this.Close();
+            }
+            
 
         }
     }

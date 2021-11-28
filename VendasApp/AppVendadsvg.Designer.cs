@@ -1,7 +1,7 @@
 ﻿
 namespace VendasApp
 {
-    partial class Form1
+    partial class AppVendadsvg
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -44,10 +44,10 @@ namespace VendasApp
             this.dgvVendas.AllowUserToAddRows = false;
             this.dgvVendas.AllowUserToDeleteRows = false;
             this.dgvVendas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVendas.Location = new System.Drawing.Point(53, 109);
+            this.dgvVendas.Location = new System.Drawing.Point(70, 109);
             this.dgvVendas.Name = "dgvVendas";
             this.dgvVendas.ReadOnly = true;
-            this.dgvVendas.Size = new System.Drawing.Size(1074, 400);
+            this.dgvVendas.Size = new System.Drawing.Size(899, 400);
             this.dgvVendas.TabIndex = 0;
             this.dgvVendas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendas_CellContentClick);
             // 
@@ -67,7 +67,7 @@ namespace VendasApp
             this.btnAlterar.TabIndex = 1;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = false;
-            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
+            this.btnAlterar.Click += new System.EventHandler(this.BtnAlterar_Click);
             // 
             // btnAdicionar
             // 
@@ -104,6 +104,7 @@ namespace VendasApp
             this.txtProcurar.Name = "txtProcurar";
             this.txtProcurar.Size = new System.Drawing.Size(489, 20);
             this.txtProcurar.TabIndex = 4;
+            this.txtProcurar.TextChanged += new System.EventHandler(this.txtProcurar_TextChanged);
             // 
             // btnExcluir
             // 
@@ -141,11 +142,12 @@ namespace VendasApp
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // Form1
+            // AppVendadsvg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 521);
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(1044, 521);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.txtProcurar);
@@ -153,8 +155,9 @@ namespace VendasApp
             this.Controls.Add(this.btnAdicionar);
             this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.dgvVendas);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "AppVendadsvg";
+            this.Text = "AppVendas";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVendas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
